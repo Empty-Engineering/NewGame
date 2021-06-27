@@ -25,14 +25,14 @@ class Villain(Characters):
 	def modOfSuperClass(self)->None:
 		return
 		
-def initiateCharacters()->None:
+def game()->None:
 	heroName = input("What is your hero's name? ")
 	villainName = input("What is your villain's name? ")
 	characterHero = Hero(heroName, 0, 10, 100, 1)
 	characterVillain = Villain(villainName, 0, 10, 100, 1)
 	stateKey = {0: "Dead", 1: "Alive"}
 	rounds = 0
-	while True:
+	while rounds<21:
 		if characterVillain.get_points() == 100:
 			print(characterVillain.get_name()+" wins the game with 100 points.\n"+
 				characterVillain.get_name()+
@@ -52,7 +52,7 @@ def initiateCharacters()->None:
 		rounds += 1
 		if rounds < 20:
 			firstMove = random.randint(0,1)
-			missChance = random.randit(0,10)
+			missChance = random.randint(0,10)
 			if characterHero.get_health()>0:
 				characterHero.state = 1
 			if characterVillain.get_health()>0:
@@ -101,3 +101,13 @@ def initiateCharacters()->None:
 					str(characterHero.dealt_damage())
 				)
 				break
+			elif characterHero.get_points()<characterVillain.get_points():
+				print(
+					characterVillain.get_name()+
+					" wins the game with 100 points.\n"
+					+characterVillain.get_name()+
+					" had a final damage/move ratio of: "+ 
+					str(characterVillain.dealt_damage())
+				)
+				break
+game()
